@@ -28,7 +28,7 @@ spec:
     }
   }
   stages {
-    stage('Clone') {
+    step('Clone') {
         echo "1.Clone Stage"
         git url: "https://github.com/m070888/Kaniko-build-image.git"
         script {
