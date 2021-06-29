@@ -28,11 +28,6 @@ spec:
     }
   }
   stages {
-    stage('Clone') { 
-            script {
-            build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-            }
-        }
     stage('Build with Kaniko') {
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
