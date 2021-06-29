@@ -28,12 +28,15 @@ spec:
     }
   }
   stages {
+    stage('Clone') { 
+            script {
+            build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            }
+        }
     stage('Build with Kaniko') {
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
-          sh '''#!/busybox/sh
-            git clone "https://github.com/m070888/Kaniko-build-image.git"
-            build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()            
+          sh '''#!/busybox/sh   
             echo "FROM jenkins/inbound-agent:latest" > Dockerfile
             /kaniko/executor --context `pwd` --destination m070888/hello-kaniko:${build_tag} 
           '''
